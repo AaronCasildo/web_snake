@@ -14,3 +14,49 @@ wasm2wat - Converts WebAssembly binary files (.wasm) to WebAssembly Text format 
 ```
 wasm2wat sum.wasm -o sum.wat
 ```
+
+---
+
+## Setting Up Node.js Development Server with Webpack
+
+Creates a development environment with hot-reloading for web applications, useful for rapid development and testing.
+
+**Initial setup commands:**
+
+1. Initialize npm project (if not already done):
+```bash
+npm init -y
+```
+
+2. Install webpack and webpack-dev-server:
+```bash
+npm install --save webpack webpack-cli
+npm install --save-dev webpack-dev-server
+```
+
+3. Create `webpack.config.js` in your project directory:
+```javascript
+const path = require('path');
+module.exports = {
+    entry: "./index.js",
+    output: {
+        path: path.resolve(__dirname, "public"),
+        filename: "index.js"
+    },
+    mode: "development"
+}
+```
+
+4. Add dev script to `package.json`:
+```json
+"scripts": {
+    "dev": "webpack-dev-server"
+}
+```
+
+5. Run the development server:
+```bash
+npm run dev
+```
+
+The server will start and watch for file changes, automatically reloading the browser when code is updated.
