@@ -17,7 +17,7 @@ wasm2wat sum.wasm -o sum.wat
 
 **Usage to convert a .wat file to .wasm**
 ```
-wasm2wat sum.wat -o sum.wasm
+wat2wasm sum.wat -o sum.wasm
 ```
 
 ---
