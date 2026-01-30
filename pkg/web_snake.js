@@ -12,6 +12,9 @@ export function greet(name) {
 function __wbg_get_imports() {
     const import0 = {
         __proto__: null,
+        __wbg_alert_e99629c161c61f43: function(arg0, arg1) {
+            alert(getStringFromWasm0(arg0, arg1));
+        },
         __wbindgen_init_externref_table: function() {
             const table = wasm.__wbindgen_externrefs;
             const offset = table.grow(4);
@@ -26,6 +29,11 @@ function __wbg_get_imports() {
         __proto__: null,
         "./web_snake_bg.js": import0,
     };
+}
+
+function getStringFromWasm0(ptr, len) {
+    ptr = ptr >>> 0;
+    return decodeText(ptr, len);
 }
 
 let cachedUint8ArrayMemory0 = null;
@@ -71,6 +79,20 @@ function passStringToWasm0(arg, malloc, realloc) {
 
     WASM_VECTOR_LEN = offset;
     return ptr;
+}
+
+let cachedTextDecoder = new TextDecoder('utf-8', { ignoreBOM: true, fatal: true });
+cachedTextDecoder.decode();
+const MAX_SAFARI_DECODE_BYTES = 2146435072;
+let numBytesDecoded = 0;
+function decodeText(ptr, len) {
+    numBytesDecoded += len;
+    if (numBytesDecoded >= MAX_SAFARI_DECODE_BYTES) {
+        cachedTextDecoder = new TextDecoder('utf-8', { ignoreBOM: true, fatal: true });
+        cachedTextDecoder.decode();
+        numBytesDecoded = len;
+    }
+    return cachedTextDecoder.decode(getUint8ArrayMemory0().subarray(ptr, ptr + len));
 }
 
 const cachedTextEncoder = new TextEncoder();
