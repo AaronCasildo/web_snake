@@ -1,6 +1,6 @@
-import init, { greet } from "web_snake"
+import init, { World } from "web_snake"
 
 init().then(() => {
-    greet("Aaron Casildo");
-    console.log("WASM Loaded");
+    const world = World.new();
+    console.log(world.width);
 });

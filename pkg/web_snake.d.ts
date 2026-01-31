@@ -1,16 +1,23 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export function greet(name: string): void;
+export class World {
+    private constructor();
+    free(): void;
+    [Symbol.dispose](): void;
+    static new(): World;
+    width: number;
+}
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
-    readonly greet: (a: number, b: number) => void;
+    readonly __wbg_get_world_width: (a: number) => number;
+    readonly __wbg_set_world_width: (a: number, b: number) => void;
+    readonly __wbg_world_free: (a: number, b: number) => void;
+    readonly world_new: () => number;
     readonly __wbindgen_externrefs: WebAssembly.Table;
-    readonly __wbindgen_malloc: (a: number, b: number) => number;
-    readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
     readonly __wbindgen_start: () => void;
 }
 
