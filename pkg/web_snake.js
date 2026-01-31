@@ -19,24 +19,18 @@ export class World {
         wasm.__wbg_world_free(ptr, 0);
     }
     /**
-     * @returns {number}
-     */
-    get width() {
-        const ret = wasm.__wbg_get_world_width(this.__wbg_ptr);
-        return ret >>> 0;
-    }
-    /**
-     * @param {number} arg0
-     */
-    set width(arg0) {
-        wasm.__wbg_set_world_width(this.__wbg_ptr, arg0);
-    }
-    /**
      * @returns {World}
      */
     static new() {
         const ret = wasm.world_new();
         return World.__wrap(ret);
+    }
+    /**
+     * @returns {number}
+     */
+    width() {
+        const ret = wasm.world_width(this.__wbg_ptr);
+        return ret >>> 0;
     }
 }
 if (Symbol.dispose) World.prototype[Symbol.dispose] = World.prototype.free;
