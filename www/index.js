@@ -28,6 +28,21 @@ init().then(() => {
         context.stroke();
     }
 
-    console.log("Snake head at index: " + world.snake_head());
+    function drawSnake(){
+
+        const snake_head_index = world.snake_head();
+        const col = snake_head_index % world_width;
+        const row = Math.floor(snake_head_index / world_width);
+
+        context.beginPath();
+        context.fillRect(
+            col * cell_size,
+            row * cell_size,
+            cell_size,
+            cell_size
+        )
+        context.stroke();
+    }
+    drawSnake();
     drawGrid();
 });
