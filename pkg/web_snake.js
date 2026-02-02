@@ -28,6 +28,13 @@ export class World {
     /**
      * @returns {number}
      */
+    snake_head() {
+        const ret = wasm.world_snake_head(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    /**
+     * @returns {number}
+     */
     width() {
         const ret = wasm.world_width(this.__wbg_ptr);
         return ret >>> 0;
