@@ -27,5 +27,7 @@ init().then(() => {
         }
         context.stroke();
     }
+
+    console.log("Snake head at index: " + world.snake_head());
     drawGrid();
 });
