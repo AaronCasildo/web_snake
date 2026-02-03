@@ -4,9 +4,12 @@ import init, { World } from "web_snake"
 init().then(() => {
     // Configuration
     const cell_size = 30; // Size of each grid cell in pixels
+    const worldWidth = 10; // Number of cells in each row/column
+    
+    const snake_spawn_index = Math.floor(Math.random() * (worldWidth * worldWidth)); // Initial position of the snake head (randomized)
 
     // Create the game world and get its dimensions
-    const world = World.new();
+    const world = World.new(worldWidth, snake_spawn_index);
     const world_width = world.width();
 
     // Setup canvas to match world dimensions
@@ -58,13 +61,14 @@ init().then(() => {
     // Game loop: update world state and redraw every 100ms
 
     function tick(){
+        const fps = 25
         setTimeout(() => {
         context.clearRect(0, 0, canvas.width, canvas.height);
         drawWorld();
         world.tick();
         // callback to tick
         requestAnimationFrame(tick);
-    }, 100);
+    }, 1000 / fps);
     }
     
     drawWorld();
