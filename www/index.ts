@@ -10,7 +10,7 @@ init().then(() => {
     const world_width = world.width();
 
     // Setup canvas to match world dimensions
-    const canvas = document.getElementById("snake-canvas");
+    const canvas = <HTMLCanvasElement>document.getElementById("snake-canvas");
     const context = canvas.getContext("2d");
     canvas.height = world_width * cell_size;
     canvas.width = world_width * cell_size;
@@ -55,7 +55,7 @@ init().then(() => {
         drawGrid();
     }
 
-    // Game loop: update world state and redraw every 100ms    }
+    // Game loop: update world state and redraw every 100ms
 
     function tick(){
         setTimeout(() => {
