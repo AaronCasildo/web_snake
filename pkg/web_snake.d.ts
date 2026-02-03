@@ -7,6 +7,7 @@ export class World {
     [Symbol.dispose](): void;
     static new(): World;
     snake_head(): number;
+    tick(): void;
     width(): number;
 }
 
@@ -17,6 +18,7 @@ export interface InitOutput {
     readonly __wbg_world_free: (a: number, b: number) => void;
     readonly world_new: () => number;
     readonly world_snake_head: (a: number) => number;
+    readonly world_tick: (a: number) => void;
     readonly world_width: (a: number) => number;
     readonly __wbindgen_externrefs: WebAssembly.Table;
     readonly __wbindgen_start: () => void;

@@ -32,6 +32,9 @@ export class World {
         const ret = wasm.world_snake_head(this.__wbg_ptr);
         return ret >>> 0;
     }
+    tick() {
+        wasm.world_tick(this.__wbg_ptr);
+    }
     /**
      * @returns {number}
      */
