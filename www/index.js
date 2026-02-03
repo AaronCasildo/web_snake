@@ -45,4 +45,11 @@ init().then(() => {
     }
     drawSnake();
     drawGrid();
+    
+    setInterval(() => {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawGrid();
+        drawSnake();
+        world.tick();
+    }, 100);
 });
