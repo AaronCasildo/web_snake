@@ -1,16 +1,21 @@
 import init, { World } from "web_snake"
 
+// Initialize the WASM module and start the game
 init().then(() => {
-    const cell_size = 30;
+    // Configuration
+    const cell_size = 30; // Size of each grid cell in pixels
 
+    // Create the game world and get its dimensions
     const world = World.new();
     const world_width = world.width();
 
+    // Setup canvas to match world dimensions
     const canvas = document.getElementById("snake-canvas");
     const context = canvas.getContext("2d");
     canvas.height = world_width * cell_size;
     canvas.width = world_width * cell_size;
     
+    // Draw the grid lines (vertical and horizontal)
     function drawGrid(){
         context.beginPath();
 
@@ -28,8 +33,9 @@ init().then(() => {
         context.stroke();
     }
 
+    // Render the snake on the canvas
     function drawSnake(){
-
+        // Get snake head position and convert to row/column coordinates
         const snake_head_index = world.snake_head();
         const col = snake_head_index % world_width;
         const row = Math.floor(snake_head_index / world_width);
@@ -43,13 +49,25 @@ init().then(() => {
         )
         context.stroke();
     }
-    drawSnake();
-    drawGrid();
-    
-    setInterval(() => {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        drawGrid();
+// Draw the complete game state (snake + grid)
+    function drawWorld(){
         drawSnake();
+        drawGrid();
+    }
+
+    // Game loop: update world state and redraw every 100ms    }
+
+    function tick(){
+        setTimeout(() => {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawWorld();
         world.tick();
+        // callback to tick
+        requestAnimationFrame(tick);
     }, 100);
+    }
+    
+    drawWorld();
+    tick();
+    
 });
