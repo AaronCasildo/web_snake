@@ -5,7 +5,7 @@ export class World {
     private constructor();
     free(): void;
     [Symbol.dispose](): void;
-    static new(): World;
+    static new(width: number, snake_spawn_index: number): World;
     snake_head(): number;
     tick(): void;
     width(): number;
@@ -16,7 +16,7 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
     readonly __wbg_world_free: (a: number, b: number) => void;
-    readonly world_new: () => number;
+    readonly world_new: (a: number, b: number) => number;
     readonly world_snake_head: (a: number) => number;
     readonly world_tick: (a: number) => void;
     readonly world_width: (a: number) => number;

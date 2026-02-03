@@ -28,12 +28,11 @@ pub struct World{
 
 #[wasm_bindgen]
 impl World{
-    pub fn new() -> World{
-        let width = 8;
+    pub fn new(width: usize, snake_spawn_index: usize) -> World{
         World{
             width,
             size: width * width,
-            snake: Snake::new(12),
+            snake: Snake::new(snake_spawn_index),
         }
     }
 
