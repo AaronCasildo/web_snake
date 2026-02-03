@@ -75,3 +75,7 @@ npm install --save copy-webpack-plugin
 ```
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 ```
+
+# Config to do on my other device (future me)
+
+Run ```npm install --save typescript ts-loader``` inside the www folder.
