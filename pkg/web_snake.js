@@ -1,5 +1,15 @@
 /* @ts-self-types="./web_snake.d.ts" */
 
+/**
+ * @enum {0 | 1 | 2 | 3}
+ */
+export const Direction = Object.freeze({
+    Up: 0, "0": "Up",
+    Down: 1, "1": "Down",
+    Left: 2, "2": "Left",
+    Right: 3, "3": "Right",
+});
+
 export class World {
     static __wrap(ptr) {
         ptr = ptr >>> 0;
@@ -17,6 +27,12 @@ export class World {
     free() {
         const ptr = this.__destroy_into_raw();
         wasm.__wbg_world_free(ptr, 0);
+    }
+    /**
+     * @param {Direction} direction
+     */
+    change_snake_direction(direction) {
+        wasm.world_change_snake_direction(this.__wbg_ptr, direction);
     }
     /**
      * @param {number} width

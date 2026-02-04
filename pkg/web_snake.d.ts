@@ -1,10 +1,18 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export enum Direction {
+    Up = 0,
+    Down = 1,
+    Left = 2,
+    Right = 3,
+}
+
 export class World {
     private constructor();
     free(): void;
     [Symbol.dispose](): void;
+    change_snake_direction(direction: Direction): void;
     static new(width: number, snake_spawn_index: number): World;
     snake_head(): number;
     tick(): void;
@@ -16,6 +24,7 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
     readonly __wbg_world_free: (a: number, b: number) => void;
+    readonly world_change_snake_direction: (a: number, b: number) => void;
     readonly world_new: (a: number, b: number) => number;
     readonly world_snake_head: (a: number) => number;
     readonly world_tick: (a: number) => void;
