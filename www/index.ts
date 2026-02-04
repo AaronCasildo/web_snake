@@ -1,13 +1,14 @@
 import init, { World, Direction } from "web_snake"
 
 // Initialize the WASM module and start the game
-init().then(() => {
+init().then(wasm => {
     // Configuration
     const cell_size = 30; // Size of each grid cell in pixels
     const worldWidth = 10; // Number of cells in each row/column
     
     // Initial position of the snake head (randomized)
     const snake_spawn_index = Math.floor(Math.random() * (worldWidth * worldWidth)); 
+    
     // Create the game world and get its dimensions
     const world = World.new(worldWidth, snake_spawn_index);
     const world_width = world.width();
@@ -19,6 +20,19 @@ init().then(() => {
     // Set canvas size based on world dimensions and cell size
     canvas.height = world_width * cell_size;
     canvas.width = world_width * cell_size;
+
+    // Get snake cells pointer and length
+    const snake_cells_ptr = world.snake_cells();
+    const snake_len = world.snake_size();
+
+
+    const snake_cells = new Uint32Array(
+        wasm.memory.buffer,
+        snake_cells_ptr,
+        snake_len
+    )
+
+    console.log("Snake Cells:",snake_cells);
 
     document.addEventListener("keydown", (event) => {
         switch(event.code){
