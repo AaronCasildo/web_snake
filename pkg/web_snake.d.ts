@@ -14,7 +14,9 @@ export class World {
     [Symbol.dispose](): void;
     change_snake_direction(direction: Direction): void;
     static new(width: number, snake_spawn_index: number): World;
+    snake_cells(): number;
     snake_head(): number;
+    snake_size(): number;
     tick(): void;
     width(): number;
 }
@@ -26,7 +28,9 @@ export interface InitOutput {
     readonly __wbg_world_free: (a: number, b: number) => void;
     readonly world_change_snake_direction: (a: number, b: number) => void;
     readonly world_new: (a: number, b: number) => number;
+    readonly world_snake_cells: (a: number) => number;
     readonly world_snake_head: (a: number) => number;
+    readonly world_snake_size: (a: number) => number;
     readonly world_tick: (a: number) => void;
     readonly world_width: (a: number) => number;
     readonly __wbindgen_externrefs: WebAssembly.Table;

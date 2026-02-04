@@ -46,8 +46,22 @@ export class World {
     /**
      * @returns {number}
      */
+    snake_cells() {
+        const ret = wasm.world_snake_cells(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    /**
+     * @returns {number}
+     */
     snake_head() {
         const ret = wasm.world_snake_head(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    /**
+     * @returns {number}
+     */
+    snake_size() {
+        const ret = wasm.world_snake_size(this.__wbg_ptr);
         return ret >>> 0;
     }
     tick() {
