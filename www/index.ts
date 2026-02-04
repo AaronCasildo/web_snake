@@ -1,4 +1,4 @@
-import init, { World } from "web_snake"
+import init, { World, Direction } from "web_snake"
 
 // Initialize the WASM module and start the game
 init().then(() => {
@@ -6,8 +6,8 @@ init().then(() => {
     const cell_size = 30; // Size of each grid cell in pixels
     const worldWidth = 10; // Number of cells in each row/column
     
-    const snake_spawn_index = Math.floor(Math.random() * (worldWidth * worldWidth)); // Initial position of the snake head (randomized)
-
+    // Initial position of the snake head (randomized)
+    const snake_spawn_index = Math.floor(Math.random() * (worldWidth * worldWidth)); 
     // Create the game world and get its dimensions
     const world = World.new(worldWidth, snake_spawn_index);
     const world_width = world.width();
@@ -15,8 +15,27 @@ init().then(() => {
     // Setup canvas to match world dimensions
     const canvas = <HTMLCanvasElement>document.getElementById("snake-canvas");
     const context = canvas.getContext("2d");
+
+    // Set canvas size based on world dimensions and cell size
     canvas.height = world_width * cell_size;
     canvas.width = world_width * cell_size;
+
+    document.addEventListener("keydown", (event) => {
+        switch(event.code){
+            case "ArrowUp":
+                world.change_snake_direction(Direction.Up);
+                break;
+            case "ArrowDown":
+                world.change_snake_direction(Direction.Down);
+                break;
+            case "ArrowLeft":
+                world.change_snake_direction(Direction.Left);
+                break;
+            case "ArrowRight":
+                world.change_snake_direction(Direction.Right);
+                break;
+        }
+    });
     
     // Draw the grid lines (vertical and horizontal)
     function drawGrid(){
@@ -61,7 +80,7 @@ init().then(() => {
     // Game loop: update world state and redraw every 100ms
 
     function tick(){
-        const fps = 25
+        const fps = 10;
         setTimeout(() => {
         context.clearRect(0, 0, canvas.width, canvas.height);
         drawWorld();
