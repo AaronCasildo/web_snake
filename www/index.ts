@@ -72,17 +72,26 @@ init().then(wasm => {
     // Render the snake on the canvas
     function drawSnake(){
         // Get snake head position and convert to row/column coordinates
-        const snake_head_index = world.snake_head();
-        const col = snake_head_index % world_width;
-        const row = Math.floor(snake_head_index / world_width);
 
-        context.beginPath();
-        context.fillRect(
+        const snakeCells = new Uint32Array(
+            wasm.memory.buffer,
+            world.snake_cells(),
+            world.snake_size()
+        );
+
+        snakeCells.forEach((cellIndex) => {
+            const col = cellIndex % world_width;
+            const row = Math.floor(cellIndex / world_width);
+
+            context.beginPath();
+            context.fillRect(
             col * cell_size,
             row * cell_size,
             cell_size,
             cell_size
         )
+        });
+       
         context.stroke();
     }
 // Draw the complete game state (snake + grid)
