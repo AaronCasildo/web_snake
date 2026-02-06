@@ -65,6 +65,12 @@ impl World{
     }
 
     pub fn change_snake_direction(&mut self, direction: Direction){
+        let next_cell = self.gen_next_snake_cell(&direction);
+        
+        if self.snake.body[1].0 == next_cell.0 {
+            return;
+        }
+
         self.snake.direction = direction;
     }
 
@@ -85,7 +91,7 @@ impl World{
         let temp_array = self.snake.body.clone();
         let lenght = self.snake.body.len();
 
-        let next_head = self.gen_next_snake_cell();
+        let next_head = self.gen_next_snake_cell(&self.snake.direction);
         self.snake.body[0] = next_head;
         
         for i in 1..lenght{
@@ -93,11 +99,11 @@ impl World{
         }
     }
 
-    fn gen_next_snake_cell(&self)->SnakeCell{
+    fn gen_next_snake_cell(&self, direction: &Direction)->SnakeCell{
         let snake_index = self.snake_head();
         let row = snake_index / self.width;
 
-        return match self.snake.direction {
+        return match direction {
             Direction::Right => {
                 let treshold = (row + 1) * self.width;
                 if snake_index + 1 == treshold {
