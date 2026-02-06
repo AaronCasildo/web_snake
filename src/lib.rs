@@ -13,7 +13,7 @@ pub enum Direction{
     Right
 }
 
-#[derive(Clone)]
+#[derive(Clone,Copy)]
 
 pub struct SnakeCell(usize);
 
@@ -43,7 +43,8 @@ impl Snake{
 pub struct World{
     width: usize,
     snake: Snake,
-    size: usize
+    size: usize,
+    next_cell: Option<SnakeCell>, // Placeholder for future use, can hold the next cell to be added
 }
 
 #[wasm_bindgen]
@@ -53,6 +54,7 @@ impl World{
             width,
             size: width * width,
             snake: Snake::new(snake_spawn_index, 5),
+            next_cell: None,
         }
     }
 
@@ -66,11 +68,11 @@ impl World{
 
     pub fn change_snake_direction(&mut self, direction: Direction){
         let next_cell = self.gen_next_snake_cell(&direction);
-        
+
         if self.snake.body[1].0 == next_cell.0 {
             return;
         }
-
+        self.next_cell = Option::Some(next_cell); // Placeholder for future use
         self.snake.direction = direction;
     }
 
@@ -91,8 +93,16 @@ impl World{
         let temp_array = self.snake.body.clone();
         let lenght = self.snake.body.len();
 
-        let next_head = self.gen_next_snake_cell(&self.snake.direction);
-        self.snake.body[0] = next_head;
+        // Update head position with next_cell if exists
+        match self.next_cell{
+            Some(cell) => {
+                self.snake.body[0] = cell;
+                self.next_cell = None;
+            },
+            None => {
+                self.snake.body[0] = self.gen_next_snake_cell(&self.snake.direction);
+            }
+        }
         
         for i in 1..lenght{
             self.snake.body[i] = SnakeCell(temp_array[i - 1].0);
