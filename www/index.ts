@@ -36,16 +36,20 @@ init().then(wasm => {
 
     document.addEventListener("keydown", (event) => {
         switch(event.code){
-            case "ArrowUp":
+            case "ArrowUp ":
+            case "KeyW":
                 world.change_snake_direction(Direction.Up);
                 break;
             case "ArrowDown":
+            case "KeyS":
                 world.change_snake_direction(Direction.Down);
                 break;
             case "ArrowLeft":
+            case "KeyA":
                 world.change_snake_direction(Direction.Left);
                 break;
             case "ArrowRight":
+            case "KeyD":
                 world.change_snake_direction(Direction.Right);
                 break;
         }
