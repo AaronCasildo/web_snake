@@ -136,9 +136,17 @@ impl World{
         }
 
         if self.reward_cell == self.snake_head(){
+
+            if self.snake_size()<self.size{
+                self.reward_cell = World::gen_reward_cell(self.size, &self.snake.body);
+            }
+            else{
+                self.reward_cell = 9999;
+            }
             self.snake.body.push(SnakeCell(self.snake.body[1].0));
-            self.reward_cell = World::gen_reward_cell(self.size, &self.snake.body);
+            
         }
+
     }
 
     fn gen_next_snake_cell(&self, direction: &Direction)->SnakeCell{
