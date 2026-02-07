@@ -1,9 +1,8 @@
-import init, { World, Direction } from "web_snake"
+import init, { World, Direction } from "../pkg";
 import { random } from "./utils/random";
-import { workerData } from "worker_threads";
 
 // Initialize the WASM module and start the game
-init().then(wasm => {
+init().then((wasm: any) => {
     // Configuration
     const cell_size = 30; // Size of each grid cell in pixels
     const worldWidth = 10; // Number of cells in each row/column
