@@ -1,4 +1,5 @@
 import init, { World, Direction } from "web_snake"
+import { random } from "./utils/random";
 import { workerData } from "worker_threads";
 
 // Initialize the WASM module and start the game
@@ -8,7 +9,7 @@ init().then(wasm => {
     const worldWidth = 10; // Number of cells in each row/column
     
     // Initial position of the snake head (randomized)
-    const snake_spawn_index = Math.floor(Math.random() * (worldWidth * worldWidth)); 
+    const snake_spawn_index = random(worldWidth * worldWidth); 
     
     // Create the game world and get its dimensions
     const world = World.new(worldWidth, snake_spawn_index);
