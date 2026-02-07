@@ -11,6 +11,15 @@ export const Direction = Object.freeze({
     Right: 3, "3": "Right",
 });
 
+/**
+ * @enum {0 | 1 | 2}
+ */
+export const GameState = Object.freeze({
+    Playing: 0, "0": "Playing",
+    GameOver: 1, "1": "GameOver",
+    Win: 2, "2": "Win",
+});
+
 export class World {
     static __wrap(ptr) {
         ptr = ptr >>> 0;

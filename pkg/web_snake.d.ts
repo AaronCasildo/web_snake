@@ -8,6 +8,12 @@ export enum Direction {
     Right = 3,
 }
 
+export enum GameState {
+    Playing = 0,
+    GameOver = 1,
+    Win = 2,
+}
+
 export class World {
     private constructor();
     free(): void;
