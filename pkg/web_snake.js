@@ -1,4 +1,5 @@
 /* @ts-self-types="./web_snake.d.ts" */
+import { random } from './snippets/web_snake-0fe7f883be228197/www/utils/random.js';
 
 /**
  * @enum {0 | 1 | 2 | 3}
@@ -83,13 +84,16 @@ export class World {
     }
 }
 if (Symbol.dispose) World.prototype[Symbol.dispose] = World.prototype.free;
-import * as import1 from "./snippets/web_snake-0fe7f883be228197/www/utils/date.js"
 
 function __wbg_get_imports() {
     const import0 = {
         __proto__: null,
         __wbg___wbindgen_throw_be289d5034ed271b: function(arg0, arg1) {
             throw new Error(getStringFromWasm0(arg0, arg1));
+        },
+        __wbg_random_afb83e68106cfc29: function(arg0) {
+            const ret = random(arg0 >>> 0);
+            return ret;
         },
         __wbindgen_init_externref_table: function() {
             const table = wasm.__wbindgen_externrefs;
@@ -104,7 +108,6 @@ function __wbg_get_imports() {
     return {
         __proto__: null,
         "./web_snake_bg.js": import0,
-        "./snippets/web_snake-0fe7f883be228197/www/utils/date.js": import1,
     };
 }
 
