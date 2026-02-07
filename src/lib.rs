@@ -4,6 +4,11 @@ use wasm_bindgen::prelude::*;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
+#[wasm_bindgen(module = "/www/utils/date.js")]
+extern {
+    fn now() -> usize;
+}
+
 #[wasm_bindgen]
 #[derive(PartialEq)]
 pub enum Direction{
@@ -51,12 +56,16 @@ pub struct World{
 #[wasm_bindgen]
 impl World{
     pub fn new(width: usize, snake_spawn_index: usize) -> World{
+
+        let size = width * width; 
+        let reward_cell = now() % size;
+
         World{
             width,
             size: width * width,
             snake: Snake::new(snake_spawn_index, 5),
             next_cell: None,
-            reward_cell: 10, // Placeholder for future use, can hold the index of the reward cell
+            reward_cell, // Placeholder for future use, can hold the index of the reward cell
         }
     }
 

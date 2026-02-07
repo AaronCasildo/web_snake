@@ -83,6 +83,7 @@ export class World {
     }
 }
 if (Symbol.dispose) World.prototype[Symbol.dispose] = World.prototype.free;
+import * as import1 from "./snippets/web_snake-0fe7f883be228197/www/utils/date.js"
 
 function __wbg_get_imports() {
     const import0 = {
@@ -103,6 +104,7 @@ function __wbg_get_imports() {
     return {
         __proto__: null,
         "./web_snake_bg.js": import0,
+        "./snippets/web_snake-0fe7f883be228197/www/utils/date.js": import1,
     };
 }
 
