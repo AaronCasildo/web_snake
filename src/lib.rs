@@ -45,6 +45,7 @@ pub struct World{
     snake: Snake,
     size: usize,
     next_cell: Option<SnakeCell>, // Placeholder for future use, can hold the next cell to be added
+    reward_cell: usize,
 }
 
 #[wasm_bindgen]
@@ -55,11 +56,16 @@ impl World{
             size: width * width,
             snake: Snake::new(snake_spawn_index, 5),
             next_cell: None,
+            reward_cell: 10, // Placeholder for future use, can hold the index of the reward cell
         }
     }
 
     pub fn width(&self) -> usize{
         self.width
+    }
+
+    pub fn reward(&self)-> usize{
+        self.reward_cell
     }
 
     pub fn snake_head(&self) -> usize{

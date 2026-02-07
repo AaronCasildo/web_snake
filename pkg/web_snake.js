@@ -46,6 +46,13 @@ export class World {
     /**
      * @returns {number}
      */
+    reward() {
+        const ret = wasm.world_reward(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    /**
+     * @returns {number}
+     */
     snake_cells() {
         const ret = wasm.world_snake_cells(this.__wbg_ptr);
         return ret >>> 0;
