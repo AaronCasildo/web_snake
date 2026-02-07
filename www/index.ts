@@ -1,4 +1,5 @@
 import init, { World, Direction } from "web_snake"
+import { workerData } from "worker_threads";
 
 // Initialize the WASM module and start the game
 init().then(wasm => {
@@ -54,6 +55,23 @@ init().then(wasm => {
                 break;
         }
     });
+
+    function rewardCell(){
+
+        const index = world.reward();
+        const col = index % world_width;
+        const row = Math.floor(index / world_width);
+        
+        context.beginPath();
+        context.fillStyle = "red"; // Reward cell color
+        context.fillRect(
+            col * cell_size,
+            row * cell_size,
+            cell_size,
+            cell_size
+        );
+        context.stroke();
+    }
     
     // Draw the grid lines (vertical and horizontal)
     function drawGrid(){
@@ -105,6 +123,7 @@ init().then(wasm => {
     function drawWorld(){
         drawSnake();
         drawGrid();
+        rewardCell();
     }
 
     // Game loop: update world state and redraw every 100ms
