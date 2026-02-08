@@ -15,6 +15,7 @@ init().then((wasm: any) => {
     const world_width = world.width();
 
     const gameController = document.getElementById("game-control-btn");
+    const gameStateLabel = document.getElementById("game-status");
 
     // Setup canvas to match world dimensions
     const canvas = <HTMLCanvasElement>document.getElementById("snake-canvas");
@@ -41,7 +42,7 @@ init().then((wasm: any) => {
         const state = world.game_state();
 
         if (state === undefined){
-            gameController.textContent = "Playing...";
+            gameStateLabel.textContent = world.game_state_lbl();
             world.start_game();
             tick();
         }
@@ -138,11 +139,17 @@ init().then((wasm: any) => {
        
         context.stroke();
     }
+
+    function updateGameStateLabel(){
+        gameStateLabel.textContent = world.game_state_lbl();
+    }
+
 // Draw the complete game state (snake + grid)
     function drawWorld(){
         drawSnake();
         drawGrid();
         rewardCell();
+        updateGameStateLabel();
     }
 
     // Game loop: update world state and redraw every 100ms
