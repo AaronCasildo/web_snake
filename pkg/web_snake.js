@@ -52,6 +52,21 @@ export class World {
         return ret === 3 ? undefined : ret;
     }
     /**
+     * @returns {string}
+     */
+    game_state_lbl() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.world_game_state_lbl(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
      * @param {number} width
      * @param {number} snake_spawn_index
      * @returns {World}

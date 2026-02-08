@@ -111,6 +111,15 @@ impl World{
         self.state
     }
 
+    pub fn game_state_lbl(&self) -> String{
+        match self.state{
+            Some(GameState::Playing) => "Playing".to_string(),
+            Some(GameState::GameOver) => "Game Over".to_string(),
+            Some(GameState::Win) => "You Win!".to_string(),
+            None => "Not Started".to_string(),
+        }
+    }
+
     pub fn change_snake_direction(&mut self, direction: Direction){
         let next_cell = self.gen_next_snake_cell(&direction);
 
