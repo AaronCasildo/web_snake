@@ -165,6 +165,10 @@ impl World{
                     self.snake.body[i] = SnakeCell(temp_array[i - 1].0);
                 }
 
+                if self.snake.body[1..].contains(&self.snake.body[0]){
+                    self.state = Option::Some(GameState::GameOver);
+                }
+
                 if self.reward_cell == self.snake_head(){
 
                     if self.snake_size()<self.size{

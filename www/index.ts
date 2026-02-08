@@ -5,7 +5,7 @@ import { random } from "./utils/random";
 init().then((wasm: any) => {
     // Configuration
     const cell_size = 30; // Size of each grid cell in pixels
-    const worldWidth = 3; // Number of cells in each row/column
+    const worldWidth = 5; // Number of cells in each row/column
     
     // Initial position of the snake head (randomized)
     const snake_spawn_index = random(worldWidth * worldWidth); 
