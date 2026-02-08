@@ -38,8 +38,16 @@ init().then((wasm: any) => {
     console.log("Snake Cells:",snake_cells);
 
     gameController.addEventListener("click", () => {
-        world.start_game();
-        tick();
+        const state = world.game_state();
+
+        if (state === undefined){
+            gameController.textContent = "Playing...";
+            world.start_game();
+            tick();
+        }
+        else{
+            location.reload();
+        }
     });
 
     document.addEventListener("keydown", (event) => {
