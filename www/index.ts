@@ -14,6 +14,8 @@ init().then((wasm: any) => {
     const world = World.new(worldWidth, snake_spawn_index);
     const world_width = world.width();
 
+    const gameController = document.getElementById("game-control-btn");
+
     // Setup canvas to match world dimensions
     const canvas = <HTMLCanvasElement>document.getElementById("snake-canvas");
     const context = canvas.getContext("2d");
@@ -34,6 +36,11 @@ init().then((wasm: any) => {
     )
 
     console.log("Snake Cells:",snake_cells);
+
+    gameController.addEventListener("click", () => {
+        world.start_game();
+        tick();
+    });
 
     document.addEventListener("keydown", (event) => {
         switch(event.code){
@@ -143,7 +150,5 @@ init().then((wasm: any) => {
     }, 1000 / fps);
     }
     
-    drawWorld();
-    tick();
-    
+    drawWorld();    
 });
