@@ -45,6 +45,13 @@ export class World {
         wasm.world_change_snake_direction(this.__wbg_ptr, direction);
     }
     /**
+     * @returns {GameState | undefined}
+     */
+    game_state() {
+        const ret = wasm.world_game_state(this.__wbg_ptr);
+        return ret === 3 ? undefined : ret;
+    }
+    /**
      * @param {number} width
      * @param {number} snake_spawn_index
      * @returns {World}
