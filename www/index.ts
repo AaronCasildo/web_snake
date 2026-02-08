@@ -120,12 +120,15 @@ init().then((wasm: any) => {
             world.snake_size()
         );
 
-        snakeCells.forEach((cellIndex,index) => {
+        snakeCells
+        .slice()
+        .reverse()
+        .forEach((cellIndex,index) => {
             const col = cellIndex % world_width;
             const row = Math.floor(cellIndex / world_width);
             
             // Differentiate head from body
-            context.fillStyle = index === 0 ? "blue" : "lightgreen"; 
+            context.fillStyle = index === snakeCells.length - 1 ? "blue" : "lightgreen"; 
 
             context.beginPath();
             context.fillRect(
