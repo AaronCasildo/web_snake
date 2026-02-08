@@ -115,7 +115,7 @@ impl World{
         match self.state{
             Some(GameState::Playing) => "Playing".to_string(),
             Some(GameState::GameOver) => "Game Over".to_string(),
-            Some(GameState::Win) => "You Win!".to_string(),
+            Some(GameState::Win) => "You Won!".to_string(),
             None => "Not Started".to_string(),
         }
     }
@@ -172,6 +172,7 @@ impl World{
                     }
                     else{
                         self.reward_cell = 9999;
+                        self.state = Option::Some(GameState::Win);
                     }
                     self.snake.body.push(SnakeCell(self.snake.body[1].0));
                     

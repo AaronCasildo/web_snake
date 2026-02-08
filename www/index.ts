@@ -5,7 +5,7 @@ import { random } from "./utils/random";
 init().then((wasm: any) => {
     // Configuration
     const cell_size = 30; // Size of each grid cell in pixels
-    const worldWidth = 6; // Number of cells in each row/column
+    const worldWidth = 3; // Number of cells in each row/column
     
     // Initial position of the snake head (randomized)
     const snake_spawn_index = random(worldWidth * worldWidth); 
@@ -89,8 +89,7 @@ init().then((wasm: any) => {
         context.stroke();
 
         if (index === 9999){
-            alert("You won!");
-        }
+            updateGameStateLabel();}
     }
     
     // Draw the grid lines (vertical and horizontal)
