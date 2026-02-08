@@ -8,6 +8,7 @@ export const world_reward: (a: number) => number;
 export const world_snake_cells: (a: number) => number;
 export const world_snake_head: (a: number) => number;
 export const world_snake_size: (a: number) => number;
+export const world_start_game: (a: number) => void;
 export const world_tick: (a: number) => void;
 export const world_width: (a: number) => number;
 export const __wbindgen_externrefs: WebAssembly.Table;

@@ -24,6 +24,7 @@ export class World {
     snake_cells(): number;
     snake_head(): number;
     snake_size(): number;
+    start_game(): void;
     tick(): void;
     width(): number;
 }
@@ -39,6 +40,7 @@ export interface InitOutput {
     readonly world_snake_cells: (a: number) => number;
     readonly world_snake_head: (a: number) => number;
     readonly world_snake_size: (a: number) => number;
+    readonly world_start_game: (a: number) => void;
     readonly world_tick: (a: number) => void;
     readonly world_width: (a: number) => number;
     readonly __wbindgen_externrefs: WebAssembly.Table;

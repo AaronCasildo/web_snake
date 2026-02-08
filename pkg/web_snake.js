@@ -81,6 +81,9 @@ export class World {
         const ret = wasm.world_snake_size(this.__wbg_ptr);
         return ret >>> 0;
     }
+    start_game() {
+        wasm.world_start_game(this.__wbg_ptr);
+    }
     tick() {
         wasm.world_tick(this.__wbg_ptr);
     }
