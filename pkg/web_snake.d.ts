@@ -22,6 +22,7 @@ export class World {
     game_state(): GameState | undefined;
     game_state_lbl(): string;
     static new(width: number, snake_spawn_index: number): World;
+    points(): number;
     reward(): number | undefined;
     snake_cells(): number;
     snake_head(): number;
@@ -40,6 +41,7 @@ export interface InitOutput {
     readonly world_game_state: (a: number) => number;
     readonly world_game_state_lbl: (a: number) => [number, number];
     readonly world_new: (a: number, b: number) => number;
+    readonly world_points: (a: number) => number;
     readonly world_reward: (a: number) => number;
     readonly world_snake_cells: (a: number) => number;
     readonly world_snake_head: (a: number) => number;

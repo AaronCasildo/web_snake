@@ -76,6 +76,13 @@ export class World {
         return World.__wrap(ret);
     }
     /**
+     * @returns {number}
+     */
+    points() {
+        const ret = wasm.world_points(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    /**
      * @returns {number | undefined}
      */
     reward() {
