@@ -156,24 +156,34 @@ init().then((wasm: any) => {
         updateGameStateLabel();
     }
 
-    // Game loop: update world state and redraw every 100ms
+    // Game loop: separate rendering from game logic updates
+    // Render frequently for responsive visuals, but update game logic at controlled rate
 
-    function tick(){
+    let lastUpdateTime = 0;
+    const gameUpdateRate = 5; // Snake movement speed (moves per second)
+    const updateDelay = 1000 / gameUpdateRate;
+
+    function tick(currentTime: number = 0){
         const state = world.game_state();
         if (state == GameState.GameOver || state == GameState.Win){
             updateGameStateLabel();
             gameController.textContent = "Restart";
-            return
+            return;
         }
-        const fps = 3;
-        setTimeout(() => {
-            console.log("Tick");
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            drawWorld();
+
+        const deltaTime = currentTime - lastUpdateTime;
+
+        // Update game logic (snake movement) at controlled rate
+        if (deltaTime >= updateDelay) {
+            lastUpdateTime = currentTime;
             world.tick();
-            // callback to tick
-            requestAnimationFrame(tick);
-        }, 1000 / fps);
+        }
+
+        // Render every frame
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawWorld();
+        
+        requestAnimationFrame(tick);
     }
     
     drawWorld();    
