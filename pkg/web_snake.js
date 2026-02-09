@@ -76,11 +76,11 @@ export class World {
         return World.__wrap(ret);
     }
     /**
-     * @returns {number}
+     * @returns {number | undefined}
      */
     reward() {
         const ret = wasm.world_reward(this.__wbg_ptr);
-        return ret >>> 0;
+        return ret === 0x100000001 ? undefined : ret;
     }
     /**
      * @returns {number}

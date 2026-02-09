@@ -4,8 +4,8 @@ import { random } from "./utils/random";
 // Initialize the WASM module and start the game
 init().then((wasm: any) => {
     // Configuration
-    const cell_size = 30; // Size of each grid cell in pixels
-    const worldWidth = 5; // Number of cells in each row/column
+    const cell_size = 50; // Size of each grid cell in pixels
+    const worldWidth = 4; // Number of cells in each row/column
     
     // Initial position of the snake head (randomized)
     const snake_spawn_index = random(worldWidth * worldWidth); 
@@ -157,7 +157,7 @@ init().then((wasm: any) => {
     // Game loop: update world state and redraw every 100ms
 
     function tick(){
-        const fps = 5;
+        const fps = 3;
         setTimeout(() => {
         context.clearRect(0, 0, canvas.width, canvas.height);
         drawWorld();

@@ -22,7 +22,7 @@ export class World {
     game_state(): GameState | undefined;
     game_state_lbl(): string;
     static new(width: number, snake_spawn_index: number): World;
-    reward(): number;
+    reward(): number | undefined;
     snake_cells(): number;
     snake_head(): number;
     snake_size(): number;

@@ -58,14 +58,14 @@ pub struct World{
     snake: Snake,
     size: usize,
     next_cell: Option<SnakeCell>, // Placeholder for future use, can hold the next cell to be added
-    reward_cell: usize,
+    reward_cell: Option<usize>,
     state: Option<GameState>,
 }
 
 #[wasm_bindgen]
 impl World{
     pub fn new(width: usize, snake_spawn_index: usize) -> World{
-        let snake = Snake::new(snake_spawn_index, 5); // Initial snake size of 5
+        let snake = Snake::new(snake_spawn_index, 3); // Initial snake size of 5
         let size = width * width; 
 
 
@@ -79,7 +79,7 @@ impl World{
         }
     }
 
-    fn gen_reward_cell(max: usize, snake_body: &Vec<SnakeCell>) -> usize{
+    fn gen_reward_cell(max: usize, snake_body: &Vec<SnakeCell>) -> Option<usize>{
         let mut reward_cell;
 
         loop{
@@ -88,14 +88,14 @@ impl World{
                 break;
             }
         }
-        return reward_cell
+        return Some(reward_cell)
     }
 
     pub fn width(&self) -> usize{
         self.width
     }
 
-    pub fn reward(&self)-> usize{
+    pub fn reward(&self)-> Option<usize>{
         self.reward_cell
     }
 
@@ -169,13 +169,13 @@ impl World{
                     self.state = Option::Some(GameState::GameOver);
                 }
 
-                if self.reward_cell == self.snake_head(){
+                if self.reward_cell == Some(self.snake_head()){
 
                     if self.snake_size()<self.size{
                         self.reward_cell = World::gen_reward_cell(self.size, &self.snake.body);
                     }
                     else{
-                        self.reward_cell = 9999;
+                        self.reward_cell = None;
                         self.state = Option::Some(GameState::Win);
                     }
                     self.snake.body.push(SnakeCell(self.snake.body[1].0));
