@@ -144,14 +144,8 @@ init().then((wasm: any) => {
     }
 
     function updateGameStateLabel(){
-        const state = world.game_state();
-
         gameStateLabel.textContent = world.game_state_lbl();
         points.textContent = world.points().toString();
-
-        if (state == GameState.GameOver || state == GameState.Win){
-            gameController.textContent = "Restart";
-        }
     }
 
 // Draw the complete game state (snake + grid)
@@ -165,14 +159,21 @@ init().then((wasm: any) => {
     // Game loop: update world state and redraw every 100ms
 
     function tick(){
+        const state = world.game_state();
+        if (state == GameState.GameOver || state == GameState.Win){
+            updateGameStateLabel();
+            gameController.textContent = "Restart";
+            return
+        }
         const fps = 3;
         setTimeout(() => {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        drawWorld();
-        world.tick();
-        // callback to tick
-        requestAnimationFrame(tick);
-    }, 1000 / fps);
+            console.log("Tick");
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            drawWorld();
+            world.tick();
+            // callback to tick
+            requestAnimationFrame(tick);
+        }, 1000 / fps);
     }
     
     drawWorld();    
