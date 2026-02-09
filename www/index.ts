@@ -5,7 +5,7 @@ import { random } from "./utils/random";
 init().then((wasm: any) => {
     // Configuration
     const cell_size = 50; // Size of each grid cell in pixels
-    const worldWidth = 4; // Number of cells in each row/column
+    const worldWidth = 8; // Number of cells in each row/column
     
     // Initial position of the snake head (randomized)
     const snake_spawn_index = random(worldWidth * worldWidth); 
@@ -39,6 +39,10 @@ init().then((wasm: any) => {
 
     console.log("Snake Cells:",snake_cells);
 
+    // Input queue to buffer rapid keypresses
+    const inputQueue: Direction[] = [];
+    const maxQueueSize = 3; // Limit queue size to prevent overfilling
+
     gameController.addEventListener("click", () => {
         const state = world.game_state();
 
@@ -53,23 +57,30 @@ init().then((wasm: any) => {
     });
 
     document.addEventListener("keydown", (event) => {
+        let direction: Direction | null = null;
+        
         switch(event.code){
             case "ArrowUp":
             case "KeyW":
-                world.change_snake_direction(Direction.Up);
+                direction = Direction.Up;
                 break;
             case "ArrowDown":
             case "KeyS":
-                world.change_snake_direction(Direction.Down);
+                direction = Direction.Down;
                 break;
             case "ArrowLeft":
             case "KeyA":
-                world.change_snake_direction(Direction.Left);
+                direction = Direction.Left;
                 break;
             case "ArrowRight":
             case "KeyD":
-                world.change_snake_direction(Direction.Right);
+                direction = Direction.Right;
                 break;
+        }
+        
+        // Add to queue if valid direction and queue not full
+        if (direction !== null && inputQueue.length < maxQueueSize) {
+            inputQueue.push(direction);
         }
     });
 
@@ -176,6 +187,13 @@ init().then((wasm: any) => {
         // Update game logic (snake movement) at controlled rate
         if (deltaTime >= updateDelay) {
             lastUpdateTime = currentTime;
+            
+            // Process one input from the queue each tick
+            if (inputQueue.length > 0) {
+                const direction = inputQueue.shift()!;
+                world.change_snake_direction(direction);
+            }
+            
             world.tick();
         }
 
