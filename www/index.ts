@@ -1,4 +1,4 @@
-import init, { World, Direction } from "../pkg";
+import init, { World, Direction, GameState } from "../pkg";
 import { random } from "./utils/random";
 
 // Initialize the WASM module and start the game
@@ -14,6 +14,7 @@ init().then((wasm: any) => {
     const world = World.new(worldWidth, snake_spawn_index);
     const world_width = world.width();
 
+    const points = document.getElementById("game-points");
     const gameController = document.getElementById("game-control-btn");
     const gameStateLabel = document.getElementById("game-status");
 
@@ -143,7 +144,14 @@ init().then((wasm: any) => {
     }
 
     function updateGameStateLabel(){
+        const state = world.game_state();
+
         gameStateLabel.textContent = world.game_state_lbl();
+        points.textContent = world.points().toString();
+
+        if (state == GameState.GameOver || state == GameState.Win){
+            gameController.textContent = "Restart";
+        }
     }
 
 // Draw the complete game state (snake + grid)
