@@ -57,6 +57,25 @@ init().then((wasm: any) => {
     });
 
     document.addEventListener("keydown", (event) => {
+        // Handle pause toggle and game start
+        if (event.code === "Space") {
+            const state = world.game_state();
+            
+            // Start game if not started
+            if (state === undefined) {
+                gameStateLabel.textContent = world.game_state_lbl();
+                world.start_game();
+                tick();
+            }
+            // Toggle pause if playing or paused
+            else if (state === GameState.Playing || state === GameState.Paused) {
+                world.toggle_pause();
+                updateGameStateLabel();
+            }            
+            event.preventDefault(); // Prevent page scroll
+            return;
+        }
+        
         let direction: Direction | null = null;
         
         switch(event.code){
