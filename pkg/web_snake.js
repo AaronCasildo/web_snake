@@ -12,12 +12,13 @@ export const Direction = Object.freeze({
 });
 
 /**
- * @enum {0 | 1 | 2}
+ * @enum {0 | 1 | 2 | 3}
  */
 export const GameState = Object.freeze({
     Playing: 0, "0": "Playing",
-    GameOver: 1, "1": "GameOver",
-    Win: 2, "2": "Win",
+    Paused: 1, "1": "Paused",
+    GameOver: 2, "2": "GameOver",
+    Win: 3, "3": "Win",
 });
 
 export class World {
@@ -49,7 +50,7 @@ export class World {
      */
     game_state() {
         const ret = wasm.world_game_state(this.__wbg_ptr);
-        return ret === 3 ? undefined : ret;
+        return ret === 4 ? undefined : ret;
     }
     /**
      * @returns {string}
@@ -115,6 +116,9 @@ export class World {
     }
     tick() {
         wasm.world_tick(this.__wbg_ptr);
+    }
+    toggle_pause() {
+        wasm.world_toggle_pause(this.__wbg_ptr);
     }
     /**
      * @returns {number}

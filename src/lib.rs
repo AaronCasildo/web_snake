@@ -22,6 +22,7 @@ pub enum Direction{
 #[derive(Clone,Copy)]
 pub enum GameState{
     Playing,
+    Paused,
     GameOver,
     Win
 }
@@ -120,9 +121,18 @@ impl World{
     pub fn game_state_lbl(&self) -> String{
         match self.state{
             Some(GameState::Playing) => "Playing".to_string(),
+            Some(GameState::Paused) => "Paused".to_string(),
             Some(GameState::GameOver) => "Game Over".to_string(),
             Some(GameState::Win) => "You Won!".to_string(),
             None => "Not Started".to_string(),
+        }
+    }
+
+    pub fn toggle_pause(&mut self){
+        match self.state{
+            Some(GameState::Playing) => self.state = Some(GameState::Paused),
+            Some(GameState::Paused) => self.state = Some(GameState::Playing),
+            _ => {}
         }
     }
 

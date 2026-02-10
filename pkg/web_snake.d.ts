@@ -10,8 +10,9 @@ export enum Direction {
 
 export enum GameState {
     Playing = 0,
-    GameOver = 1,
-    Win = 2,
+    Paused = 1,
+    GameOver = 2,
+    Win = 3,
 }
 
 export class World {
@@ -29,6 +30,7 @@ export class World {
     snake_size(): number;
     start_game(): void;
     tick(): void;
+    toggle_pause(): void;
     width(): number;
 }
 
@@ -48,6 +50,7 @@ export interface InitOutput {
     readonly world_snake_size: (a: number) => number;
     readonly world_start_game: (a: number) => void;
     readonly world_tick: (a: number) => void;
+    readonly world_toggle_pause: (a: number) => void;
     readonly world_width: (a: number) => number;
     readonly __wbindgen_externrefs: WebAssembly.Table;
     readonly __wbindgen_free: (a: number, b: number, c: number) => void;
