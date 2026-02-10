@@ -4,8 +4,12 @@ import { random } from "./utils/random";
 // Initialize the WASM module and start the game
 init().then((wasm: any) => {
     // Configuration
-    const cell_size = 50; // Size of each grid cell in pixels
     const worldWidth = 8; // Number of cells in each row/column
+    
+    // Calculate responsive cell size based on window dimensions
+    const maxCanvasWidth = Math.min(window.innerWidth * 0.9, 600);
+    const maxCanvasHeight = Math.min(window.innerHeight * 0.7, 600);
+    const cell_size = Math.floor(Math.min(maxCanvasWidth, maxCanvasHeight) / worldWidth);
     
     // Initial position of the snake head (randomized)
     const snake_spawn_index = random(worldWidth * worldWidth); 
@@ -22,7 +26,7 @@ init().then((wasm: any) => {
     const canvas = <HTMLCanvasElement>document.getElementById("snake-canvas");
     const context = canvas.getContext("2d");
 
-    // Set canvas size based on world dimensions and cell size
+    // Set canvas size based on world dimensions and calculated cell size
     canvas.height = world_width * cell_size;
     canvas.width = world_width * cell_size;
 
