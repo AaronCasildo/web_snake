@@ -12,6 +12,9 @@ export default {
         filename: "bootstrap.js"
     },
     mode: "development",
+    experiments: {
+        asyncWebAssembly: true
+    },
     module: {
     rules: [
       {
