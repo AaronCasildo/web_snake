@@ -12,4 +12,3 @@ crate-type = ["cdylib"]
 
 [[bin]]
 name = "web_snake_cli"
-path = "src/main.rs"
